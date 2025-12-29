@@ -3,9 +3,9 @@ package com.superior.superior;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.superior.superior.billing.BillingSystem;
+import com.superior.superior.billing.Invoice;
 
-import com.superior.superior.chat.PersonalChat;
-import com.superior.superior.chat.PersonalMessage;
 
 @SpringBootApplication
 public class SuperiorApplication {
@@ -16,12 +16,17 @@ public class SuperiorApplication {
         SpringApplication.run(SuperiorApplication.class, args);
 
         // blank testing section
-        PersonalChat personalChat = new PersonalChat();
+        BillingSystem billingSystem = new BillingSystem();
 
-        personalChat.sendMessage(new PersonalMessage("Hey", "alice", "smith fam"));
-        personalChat.sendMessage(new PersonalMessage("thanks", "smith fam", "alice"));
+        Invoice inv1 = new Invoice(1L, "smith fam", 150.00);
+        Invoice inv2 = new Invoice(2L, "smith fam", 3453.00);
+        billingSystem.createInvoice(inv1);
+        billingSystem.createInvoice(inv2);
 
-        personalChat.showMessageBetween("alice", "smith fam");
+        billingSystem.payInvoice(1L);
+
+        billingSystem.showInvoicesForClient("smith fam");
+
 
 
 
