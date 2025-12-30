@@ -1,17 +1,19 @@
 package com.superior.superior.employees;
 
+import com.superior.superior.users.Role;
+import com.superior.superior.users.User;
 import com.superior.superior.notes.Note;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Employee {
+public class Employee extends User {
 
-    private Long id;
     private String name;
     private List<Note> privateNotes = new ArrayList<>();
 
-    public Employee(Long id, String name) {
-        this.id = id;
+    public Employee(Long id, String email, String password, String name) {
+        super(id, email, password, Role.EMPLOYEE);
         this.name = name;
     }
 
@@ -27,6 +29,3 @@ public class Employee {
         return name;
     }
 }
-
-// add notes with: employee.addPrivateNote(new Note("key code 0000", "EmployeeName"));
-// includes the timestamp, creator, and text from imported notes.Note above

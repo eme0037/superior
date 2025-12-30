@@ -2,19 +2,19 @@ package com.superior.superior.employees;
 
 import com.superior.superior.clients.Client;
 import com.superior.superior.notes.Note;
-import java.util.List;
+import com.superior.superior.users.User;
+import com.superior.superior.users.Role;
 
-public class Owner {
+public class Owner extends User {
 
-    private Long id;
     private String name;
 
-    public Owner(Long id, String name) {
-        this.id = id;
+    public Owner(Long id, String email, String password, String name) {
+        super(id, email, password, Role.OWNER); // login role
         this.name = name;
     }
 
-    // view of all client notes
+    // owner can view all client notes
     public void viewClientNotes(Client client) {
         System.out.println("Notes for client: " + client.getName());
         for (Note note : client.getNotes()) {
@@ -22,11 +22,15 @@ public class Owner {
         }
     }
 
-    // view of all employee private notes
-    public void viewEmployeeNotes(Employee employee) {
+    // owner can view all employee private notes
+    public void viewEmployeeNotes(com.superior.superior.employees.Employee employee) {
         System.out.println("Private notes for employee: " + employee.getName());
         for (Note note : employee.getPrivateNotes()) {
             System.out.println(note.getCreatedBy() + " - " + note.getText() + " at " + note.getCreatedAt());
         }
+    }
+
+    public String getName() {
+        return name;
     }
 }

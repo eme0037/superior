@@ -1,10 +1,21 @@
 package com.superior.superior;
 
+import com.superior.superior.employees.Employee;
+import com.superior.superior.employees.Owner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.superior.superior.billing.BillingSystem;
-import com.superior.superior.billing.Invoice;
+import com.superior.superior.users.LoginSystem;
+import com.superior.superior.users.User;
+import com.superior.superior.users.Role;
+
+import com.superior.superior.clients.Client;
+import com.superior.superior.employees.Employee;
+import com.superior.superior.employees.Owner;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -16,21 +27,38 @@ public class SuperiorApplication {
         SpringApplication.run(SuperiorApplication.class, args);
 
         // blank testing section
-        BillingSystem billingSystem = new BillingSystem();
+        Client client = new Client(
+                1L,
+                "client@example.com",
+                "1234",
+                "Smith Family",
+                "123 Main St"
+        );
 
-        Invoice inv1 = new Invoice(1L, "smith fam", 150.00);
-        Invoice inv2 = new Invoice(2L, "smith fam", 3453.00);
-        billingSystem.createInvoice(inv1);
-        billingSystem.createInvoice(inv2);
+        Employee employee = new Employee(
+                2L,
+                "alice@gmail.com",
+                "abcd",
+                "Alice"
+        );
 
-        billingSystem.payInvoice(1L);
+        Owner owner = new Owner(
+                3L,
+                "boss@gmail.com",
+                "admin",
+                "Boss"
+        );
 
-        billingSystem.showInvoicesForClient("smith fam");
+        List<User> users = new ArrayList<>();
+        users.add(client);
+        users.add(employee);
+        users.add(owner);
 
+        LoginSystem loginSystem = new LoginSystem(users);
 
-
-
-
+        loginSystem.login("client@example.com", "1234");
+        loginSystem.login("alice@gmail.com", "abcd");
+        loginSystem.login("boss@gmail.com", "admin");
     }
 
 }

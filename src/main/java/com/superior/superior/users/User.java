@@ -13,6 +13,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
+
     }
 
     // getters and setters
@@ -49,6 +50,9 @@ public class User {
         this.role = role;
     }
 
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
 
 
 
