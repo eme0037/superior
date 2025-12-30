@@ -1,18 +1,17 @@
 package com.superior.superior;
 
-import com.superior.superior.employees.Employee;
-import com.superior.superior.employees.Owner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.superior.superior.users.LoginSystem;
-import com.superior.superior.users.User;
-import com.superior.superior.users.Role;
 
+// put imports under this
 import com.superior.superior.clients.Client;
 import com.superior.superior.employees.Employee;
 import com.superior.superior.employees.Owner;
-
+import com.superior.superior.users.LoginSystem;
+import com.superior.superior.users.User;
+import com.superior.superior.users.Role;
+import com.superior.superior.menu.MenuController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,38 +26,24 @@ public class SuperiorApplication {
         SpringApplication.run(SuperiorApplication.class, args);
 
         // blank testing section
-        Client client = new Client(
-                1L,
-                "client@example.com",
-                "1234",
-                "Smith Family",
-                "123 Main St"
-        );
-
-        Employee employee = new Employee(
-                2L,
-                "alice@gmail.com",
-                "abcd",
-                "Alice"
-        );
-
-        Owner owner = new Owner(
-                3L,
-                "boss@gmail.com",
-                "admin",
-                "Boss"
-        );
 
         List<User> users = new ArrayList<>();
-        users.add(client);
-        users.add(employee);
-        users.add(owner);
+        users.add(new Client(1L, "client@example.com", "1234", "Smith Family", "123 Main St"));
+        users.add(new Employee(2L, "alice@gmail.com", "abcd", "Alice"));
+        users.add(new Owner(3L, "boss@gmail.com", "admin", "Boss"));
 
-        LoginSystem loginSystem = new LoginSystem(users);
+        LoginSystem loginSystem = new LoginSystem(users); // 🔑 MUST create first
 
-        loginSystem.login("client@example.com", "1234");
-        loginSystem.login("alice@gmail.com", "abcd");
-        loginSystem.login("boss@gmail.com", "admin");
+        User loggedInUser;
+
+        loggedInUser = loginSystem.login("client@example.com", "1234");
+        MenuController.showMenu(loggedInUser);
+
+        loggedInUser = loginSystem.login("alice@gmail.com", "abcd");
+        MenuController.showMenu(loggedInUser);
+
+        loggedInUser = loginSystem.login("boss@gmail.com", "admin");
+        MenuController.showMenu(loggedInUser);
     }
 
 }
