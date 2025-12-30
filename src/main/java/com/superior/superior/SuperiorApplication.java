@@ -13,6 +13,8 @@ import com.superior.superior.users.User;
 import com.superior.superior.users.Role;
 import com.superior.superior.menu.MenuController;
 
+
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class SuperiorApplication {
 
         User loggedInUser;
 
+
+
         loggedInUser = loginSystem.login("client@example.com", "1234");
         MenuController.showMenu(loggedInUser);
 
@@ -44,6 +48,7 @@ public class SuperiorApplication {
 
         loggedInUser = loginSystem.login("boss@gmail.com", "admin");
         MenuController.showMenu(loggedInUser);
+
     }
 
 }
