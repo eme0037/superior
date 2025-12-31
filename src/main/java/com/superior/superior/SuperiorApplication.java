@@ -29,25 +29,36 @@ public class SuperiorApplication {
 
         // blank testing section
 
+        // ---- testing section ----
+
+// users
         List<User> users = new ArrayList<>();
         users.add(new Client(1L, "client@example.com", "1234", "Smith Family", "123 Main St"));
         users.add(new Employee(2L, "alice@gmail.com", "abcd", "Alice"));
         users.add(new Owner(3L, "boss@gmail.com", "admin", "Boss"));
 
-        LoginSystem loginSystem = new LoginSystem(users); // 🔑 MUST create first
+// login system
+        LoginSystem loginSystem = new LoginSystem(users);
 
+// employees list (for owner menu)
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(2L, "alice@gmail.com", "abcd", "Alice"));
+
+// login + menus
         User loggedInUser;
 
-
-
         loggedInUser = loginSystem.login("client@example.com", "1234");
-        MenuController.showMenu(loggedInUser);
+        MenuController.showMenu(loggedInUser, employees);
 
         loggedInUser = loginSystem.login("alice@gmail.com", "abcd");
-        MenuController.showMenu(loggedInUser);
+        MenuController.showMenu(loggedInUser, employees);
 
         loggedInUser = loginSystem.login("boss@gmail.com", "admin");
-        MenuController.showMenu(loggedInUser);
+        MenuController.showMenu(loggedInUser, employees);
+
+
+
+
 
     }
 

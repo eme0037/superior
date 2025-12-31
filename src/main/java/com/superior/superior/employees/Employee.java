@@ -28,4 +28,15 @@ public class Employee extends User {
     public String getName() {
         return name;
     }
+
+    public void viewPrivateNotes() {
+        if (privateNotes.isEmpty()) {
+            System.out.println("No notes");
+            return;
+        }
+
+        for (Note note : privateNotes) {
+            System.out.println(note.getCreatedBy() + ": " + note.getText() + " at " + note.getCreatedAt());
+        }
+    }
 }

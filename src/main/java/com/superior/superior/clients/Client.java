@@ -37,5 +37,16 @@ public class Client extends User {
     public String getAddress() {
         return address;
     }
+
+    public void viewNotes() {
+        if (notes.isEmpty()) {
+            System.out.println("No notes");
+            return;
+        }
+
+        for (Note note : notes) {
+            System.out.println(note.getCreatedBy() + ": " + note.getText() + " at " + note.getCreatedAt());
+        }
+    }
 }
 
