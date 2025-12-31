@@ -31,62 +31,43 @@ public class SuperiorApplication {
         // blank testing section
 
         // ---- testing section ----
-        // ---- testing section ----
 
-// 1️⃣ Create client
-        Client client = new Client(
-                1L,
-                "client@example.com",
-                "1234",
-                "Smith Family",
-                "123 Main St"
-        );
+        // ---- TESTING EMPLOYEE NOTES FLOW ----
 
-// 2️⃣ Add notes to client
+// 1. Create client
+        Client client = new Client(1L, "client@example.com", "1234", "Smith Family", "123 Main St");
         client.addNote(new Note("House cleaned", "Alice"));
-        client.addNote(new Note("Dog was friendly", "Alice"));
 
-// 3️⃣ Create employee
-        Employee employee = new Employee(
-                2L,
-                "alice@gmail.com",
-                "abcd",
-                "Alice"
-        );
+// 2. Create employee
+        Employee employee = new Employee(2L, "alice@gmail.com", "abcd", "Alice");
 
-// 4️⃣ Create owner
-        Owner owner = new Owner(
-                3L,
-                "boss@gmail.com",
-                "admin",
-                "Boss"
-        );
+// 3. Create owner
+        Owner owner = new Owner(3L, "boss@gmail.com", "admin", "Boss");
 
-// 5️⃣ Store users for login system
+// 4. Users list for login system
         List<User> users = new ArrayList<>();
         users.add(client);
         users.add(employee);
         users.add(owner);
 
-// 6️⃣ Store employees for owner menu
+// 5. Employees list for owner menu
         List<Employee> employees = new ArrayList<>();
         employees.add(employee);
 
-// 7️⃣ Create login system
+// 6. Create login system
         LoginSystem loginSystem = new LoginSystem(users);
 
-// 8️⃣ Login and show menus
-        User loggedInUser;
+// ---- LOGIN AS EMPLOYEE ----
+        User loggedInUser = loginSystem.login("alice@gmail.com", "abcd");
 
-        loggedInUser = loginSystem.login("client@example.com", "1234");
+// Employee adds private notes
         MenuController.showMenu(loggedInUser, employees);
 
-        loggedInUser = loginSystem.login("alice@gmail.com", "abcd");
-        MenuController.showMenu(loggedInUser, employees);
-
+// ---- LOGIN AS OWNER ----
         loggedInUser = loginSystem.login("boss@gmail.com", "admin");
-        MenuController.showMenu(loggedInUser, employees);
 
+// Owner views employee notes
+        MenuController.showMenu(loggedInUser, employees);
 
 
     }

@@ -65,6 +65,8 @@ public class MenuController {
     }
 
     private static boolean employeeMenu(User user) {
+        Employee employee = (Employee) user;
+
         System.out.println("\n--- EMPLOYEE MENU ---");
         System.out.println("1. View assigned clients");
         System.out.println("2. Add private note");
@@ -78,7 +80,6 @@ public class MenuController {
                 System.out.println("Viewing assigned clients...");
                 break;
             case "2":
-                Employee employee = (Employee) user;
                 System.out.println("Enter private note: ");
                 String noteText = scnr.nextLine();
                 employee.addPrivateNote(new Note(noteText, employee.getName()));
@@ -96,6 +97,8 @@ public class MenuController {
     }
 
     private static boolean ownerMenu(User user, List<Employee> employees) {
+        Owner owner = (Owner) user;
+
         System.out.println("\n--- OWNER MENU ---");
         System.out.println("1. View all clients");
         System.out.println("2. View employee notes");
@@ -110,8 +113,6 @@ public class MenuController {
                 System.out.println("Viewing all clients...");
                 break;
             case "2":
-                Owner owner = (Owner) user;
-
                 if (employees.isEmpty()) {
                     System.out.println("No employees found");
                     break;
