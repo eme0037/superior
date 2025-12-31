@@ -12,6 +12,7 @@ import com.superior.superior.users.LoginSystem;
 import com.superior.superior.users.User;
 import com.superior.superior.users.Role;
 import com.superior.superior.menu.MenuController;
+import com.superior.superior.notes.Note;
 
 
 import java.util.Scanner;
@@ -30,21 +31,51 @@ public class SuperiorApplication {
         // blank testing section
 
         // ---- testing section ----
+        // ---- testing section ----
 
-// users
+// 1️⃣ Create client
+        Client client = new Client(
+                1L,
+                "client@example.com",
+                "1234",
+                "Smith Family",
+                "123 Main St"
+        );
+
+// 2️⃣ Add notes to client
+        client.addNote(new Note("House cleaned", "Alice"));
+        client.addNote(new Note("Dog was friendly", "Alice"));
+
+// 3️⃣ Create employee
+        Employee employee = new Employee(
+                2L,
+                "alice@gmail.com",
+                "abcd",
+                "Alice"
+        );
+
+// 4️⃣ Create owner
+        Owner owner = new Owner(
+                3L,
+                "boss@gmail.com",
+                "admin",
+                "Boss"
+        );
+
+// 5️⃣ Store users for login system
         List<User> users = new ArrayList<>();
-        users.add(new Client(1L, "client@example.com", "1234", "Smith Family", "123 Main St"));
-        users.add(new Employee(2L, "alice@gmail.com", "abcd", "Alice"));
-        users.add(new Owner(3L, "boss@gmail.com", "admin", "Boss"));
+        users.add(client);
+        users.add(employee);
+        users.add(owner);
 
-// login system
+// 6️⃣ Store employees for owner menu
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee);
+
+// 7️⃣ Create login system
         LoginSystem loginSystem = new LoginSystem(users);
 
-// employees list (for owner menu)
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(2L, "alice@gmail.com", "abcd", "Alice"));
-
-// login + menus
+// 8️⃣ Login and show menus
         User loggedInUser;
 
         loggedInUser = loginSystem.login("client@example.com", "1234");
@@ -55,8 +86,6 @@ public class SuperiorApplication {
 
         loggedInUser = loginSystem.login("boss@gmail.com", "admin");
         MenuController.showMenu(loggedInUser, employees);
-
-
 
 
 

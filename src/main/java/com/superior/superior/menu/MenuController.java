@@ -4,7 +4,6 @@ import com.superior.superior.clients.Client;
 import com.superior.superior.employees.Employee;
 import com.superior.superior.employees.Owner;
 import com.superior.superior.notes.Note;
-import com.superior.superior.users.Role;
 import com.superior.superior.users.User;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class MenuController {
         while (!exit) {
             switch (user.getRole()) {
                 case CLIENT:
-                    exit = clientMenu(user);
+                    exit = clientMenu(user, employees);
                     break;
                 case EMPLOYEE:
                     exit = employeeMenu(user);
@@ -33,7 +32,9 @@ public class MenuController {
         }
     }
 
-    private static boolean clientMenu(User user) {
+    private static boolean clientMenu(User user, List<Employee> employees) {
+        Client client = (Client) user;
+
         System.out.println("\n--- CLIENT MENU ---");
         System.out.println("1. View my notes");
         System.out.println("2. Pay invoice");
@@ -43,8 +44,14 @@ public class MenuController {
 
         switch (choice) {
             case "1":
-                Client client = (Client) user;
-                client.viewNotes();
+                if (client.getNotes().isEmpty()) {
+                    System.out.println("No notes");
+                }
+                else {
+                    for (Note note : client.getNotes()) {
+                        System.out.println(note.getCreatedBy() + ": " + note.getText() + " at " + note.getCreatedAt());
+                    }
+                }
                 break;
             case "2":
                 System.out.println("Paying invoice...");
