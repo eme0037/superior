@@ -5,6 +5,7 @@ import com.superior.superior.employees.Employee;
 import com.superior.superior.employees.Owner;
 import com.superior.superior.notes.Note;
 import com.superior.superior.users.User;
+import com.superior.superior.billing.Invoice;
 
 import java.util.List;
 import java.util.Scanner;
@@ -54,7 +55,19 @@ public class MenuController {
                 }
                 break;
             case "2":
-                System.out.println("Paying invoice...");
+                if(client.getInvoices().isEmpty()) {
+                    System.out.println("No invoices to pay");
+                    break;
+                }
+                Invoice invoice = client.getInvoices().get(0);
+
+                if (invoice.isPaid()) {
+                    System.out.println("Invoice is paid");
+                }
+                else {
+                    invoice.pay();
+                    System.out.println("Invoice paid: $" + invoice.getAmount());
+                }
                 break;
             case "0":
                 return true; // exit menu
@@ -86,7 +99,13 @@ public class MenuController {
                 System.out.println("Private note added");
                 break;
             case "3":
-                System.out.println("Clocking in/out...");
+                employee.clockInOut();
+                if (employee.isClockedIn()) {
+                    System.out.println("Clocked In");
+                }
+                else {
+                    System.out.println("Clocked Out");
+                }
                 break;
             case "0":
                 return true; // exit menu

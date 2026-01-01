@@ -14,7 +14,7 @@ public class BillingSystem {
     public void payInvoice(Long id) {
         for (Invoice invoice : invoices) {
             if (invoice.getId().equals(id)) {
-                invoice.markAsPaid();
+                invoice.isPaid();
             }
         }
     }

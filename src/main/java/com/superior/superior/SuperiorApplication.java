@@ -13,6 +13,7 @@ import com.superior.superior.users.User;
 import com.superior.superior.users.Role;
 import com.superior.superior.menu.MenuController;
 import com.superior.superior.notes.Note;
+import com.superior.superior.billing.Invoice;
 
 
 import java.util.Scanner;
@@ -29,46 +30,50 @@ public class SuperiorApplication {
         SpringApplication.run(SuperiorApplication.class, args);
 
         // blank testing section
+        Client client1 = new Client(
+                1L,
+                "client@example.com",
+                "1234",
+                "Smith Family",
+                "123 Main St"
+        );
 
-        // ---- testing section ----
+        client1.addInvoice(new Invoice(1L, client1.getName(), 150.00));
 
-        // ---- TESTING EMPLOYEE NOTES FLOW ----
+        Employee employee1 = new Employee(
+                2L,
+                "alice@gmail.com",
+                "abcd",
+                "Alice"
+        );
 
-// 1. Create client
-        Client client = new Client(1L, "client@example.com", "1234", "Smith Family", "123 Main St");
-        client.addNote(new Note("House cleaned", "Alice"));
+        Owner owner1 = new Owner(
+                3L,
+                "boss@gmail.com",
+                "admin",
+                "Boss"
+        );
 
-// 2. Create employee
-        Employee employee = new Employee(2L, "alice@gmail.com", "abcd", "Alice");
-
-// 3. Create owner
-        Owner owner = new Owner(3L, "boss@gmail.com", "admin", "Boss");
-
-// 4. Users list for login system
         List<User> users = new ArrayList<>();
-        users.add(client);
-        users.add(employee);
-        users.add(owner);
+        users.add(client1);
+        users.add(employee1);
+        users.add(owner1);
 
-// 5. Employees list for owner menu
         List<Employee> employees = new ArrayList<>();
-        employees.add(employee);
+        employees.add(employee1);
 
-// 6. Create login system
         LoginSystem loginSystem = new LoginSystem(users);
 
-// ---- LOGIN AS EMPLOYEE ----
-        User loggedInUser = loginSystem.login("alice@gmail.com", "abcd");
-
-// Employee adds private notes
+        User loggedInUser = loginSystem.login("client@example.com", "1234");
         MenuController.showMenu(loggedInUser, employees);
 
-// ---- LOGIN AS OWNER ----
+        loggedInUser = loginSystem.login("alice@gmail.com", "abcd");
+        MenuController.showMenu(loggedInUser, employees);
+
         loggedInUser = loginSystem.login("boss@gmail.com", "admin");
-
-// Owner views employee notes
         MenuController.showMenu(loggedInUser, employees);
 
+        System.out.println("\n Program finished successfully");
 
     }
 

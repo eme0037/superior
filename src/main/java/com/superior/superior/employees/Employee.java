@@ -3,6 +3,7 @@ package com.superior.superior.employees;
 import com.superior.superior.users.Role;
 import com.superior.superior.users.User;
 import com.superior.superior.notes.Note;
+import com.superior.superior.menu.MenuController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +39,15 @@ public class Employee extends User {
         for (Note note : privateNotes) {
             System.out.println(note.getCreatedBy() + ": " + note.getText() + " at " + note.getCreatedAt());
         }
+    }
+
+    private boolean clockedIn = false;
+
+    public void clockInOut() {
+        clockedIn = !clockedIn;
+    }
+
+    public boolean isClockedIn() {
+        return clockedIn;
     }
 }
