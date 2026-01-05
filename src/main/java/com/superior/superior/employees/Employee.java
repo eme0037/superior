@@ -4,6 +4,7 @@ import com.superior.superior.users.Role;
 import com.superior.superior.users.User;
 import com.superior.superior.notes.Note;
 import com.superior.superior.menu.MenuController;
+import com.superior.superior.clients.Client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,5 +50,13 @@ public class Employee extends User {
 
     public boolean isClockedIn() {
         return clockedIn;
+    }
+
+    private List<Client> assignedClients = new ArrayList<>();
+    public void assignClient(Client client) {
+        assignedClients.add(client);
+    }
+    public List<Client> getAssignedClients() {
+        return assignedClients;
     }
 }

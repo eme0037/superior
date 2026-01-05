@@ -109,7 +109,15 @@ public class MenuController {
 
         switch (choice) {
             case "1":
-                System.out.println("Viewing assigned clients...");
+                if(employee.getAssignedClients().isEmpty()) {
+                    System.out.println("No assigned clients");
+                    break;
+                }
+
+                System.out.println("Assigned Clients:");
+                for (Client client : employee.getAssignedClients()) {
+                    System.out.println("- " + client.getName() + " (" + client.getAddress() + ") ");
+                }
                 break;
             case "2":
                 System.out.println("Enter private note: ");
@@ -141,7 +149,8 @@ public class MenuController {
         System.out.println("1. View all clients");
         System.out.println("2. View employee notes");
         System.out.println("3. Send invoices");
-        System.out.println("4. Add/remove employees");
+        System.out.println("4. Assign client to employee");
+        System.out.println("5. Add/remove employees");
         System.out.println("0. Logout");
 
         String choice = scnr.nextLine();
@@ -174,8 +183,7 @@ public class MenuController {
                 int clientIndex;
                 try {
                     clientIndex = Integer.parseInt(scnr.nextLine()) - 1;
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     System.out.println("Invalid selection");
                     break;
                 }
@@ -186,8 +194,7 @@ public class MenuController {
                 double amount;
                 try {
                     amount = Double.parseDouble(scnr.nextLine());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     System.out.println("Invalid amount");
                     break;
                 }
@@ -199,7 +206,65 @@ public class MenuController {
                 System.out.println("Invoice sent to " + selectedClient.getName());
                 break;
             case "4":
-                System.out.println("Adding/removing employees...");
+                System.out.println("Assigning client to employee...");
+                break;
+            case "5":
+                System.out.println("\n1. Add Employee");
+                System.out.println("2. Remove Employee");
+                System.out.println("0. Back");
+
+                String empChoice = scnr.nextLine();
+
+                switch (empChoice) {
+                    case "1":
+                        System.out.println("Enter new employee name: ");
+                        String name = scnr.nextLine();
+
+                        System.out.println("Enter new employee email: ");
+                        String email = scnr.nextLine();
+                        ;
+
+                        System.out.println("Enter new employee password: ");
+                        String password = scnr.nextLine();
+
+                        long id = System.currentTimeMillis(); // gives a simple unique ID
+                        Employee newEmployee = new Employee(id, email, password, name);
+                        employees.add(newEmployee);
+
+                        System.out.println("Employee added: " + name);
+                        break;
+                    case "2":
+                        if (employees.isEmpty()) {
+                            System.out.println("No employees to remove");
+                            break;
+                        }
+
+                        System.out.println("Select employee to remove: ");
+                        for (int i = 0; i < employees.size(); i++) {
+                            System.out.println((i + 1) + ". " + employees.get(i).getName());
+                        }
+
+                        int removeIndex;
+                        try {
+                            removeIndex = Integer.parseInt(scnr.nextLine()) - 1;
+                        } catch (Exception e) {
+                            System.out.println("Invalid selection");
+                            break;
+                        }
+
+                        if (removeIndex < 0 || removeIndex >= employees.size()) {
+                            System.out.println("Invalid index");
+                            break;
+                        }
+
+                        Employee removed = employees.remove(removeIndex);
+                        System.out.println("Removed employee: " + removed.getName());
+                        break;
+                    case "0":
+                        break;
+                    default:
+                        System.out.println("Invalid option");
+                }
                 break;
             case "0":
                 return true; // exit menu
