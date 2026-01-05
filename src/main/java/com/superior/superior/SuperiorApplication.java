@@ -62,16 +62,19 @@ public class SuperiorApplication {
         List<Employee> employees = new ArrayList<>();
         employees.add(employee1);
 
+        List<Client> clients = new ArrayList<>();
+        clients.add(client1);
+
         LoginSystem loginSystem = new LoginSystem(users);
 
         User loggedInUser = loginSystem.login("client@example.com", "1234");
-        MenuController.showMenu(loggedInUser, employees);
+        MenuController.showMenu(loggedInUser, clients, employees);
 
         loggedInUser = loginSystem.login("alice@gmail.com", "abcd");
-        MenuController.showMenu(loggedInUser, employees);
+        MenuController.showMenu(loggedInUser, clients, employees);
 
         loggedInUser = loginSystem.login("boss@gmail.com", "admin");
-        MenuController.showMenu(loggedInUser, employees);
+        MenuController.showMenu(loggedInUser, clients, employees);
 
         System.out.println("\n Program finished successfully");
 

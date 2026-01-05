@@ -14,7 +14,7 @@ public class MenuController {
 
     private static Scanner scnr = new Scanner(System.in);
 
-    public static void showMenu(User user, List<Employee> employees) {
+    public static void showMenu(User user, List<Client> clients, List<Employee> employees) {
         if (user == null) return;
 
         boolean exit = false;
@@ -27,7 +27,7 @@ public class MenuController {
                     exit = employeeMenu(user);
                     break;
                 case OWNER:
-                    exit = ownerMenu(user, employees);
+                    exit = ownerMenu(user, clients, employees);
                     break;
             }
         }
@@ -134,7 +134,7 @@ public class MenuController {
         return false;
     }
 
-    private static boolean ownerMenu(User user, List<Employee> employees) {
+    private static boolean ownerMenu(User user, List<Client> clients, List<Employee> employees) {
         Owner owner = (Owner) user;
 
         System.out.println("\n--- OWNER MENU ---");
@@ -160,8 +160,43 @@ public class MenuController {
                     owner.viewEmployeeNotes(emp);
                 }
                 break;
-            case "3":
-                System.out.println("Sending invoices...");
+            case "3": // create invoice
+                if (clients.isEmpty()) {
+                    System.out.println("No clients available");
+                    break;
+                }
+
+                System.out.println("Select client: ");
+                for (int i = 0; i < clients.size(); i++) {
+                    System.out.println((i + 1) + ". " + clients.get(i).getName());
+                }
+
+                int clientIndex;
+                try {
+                    clientIndex = Integer.parseInt(scnr.nextLine()) - 1;
+                }
+                catch (Exception e) {
+                    System.out.println("Invalid selection");
+                    break;
+                }
+
+                Client selectedClient = clients.get(clientIndex);
+
+                System.out.println("Enter invoice amount: ");
+                double amount;
+                try {
+                    amount = Double.parseDouble(scnr.nextLine());
+                }
+                catch (Exception e) {
+                    System.out.println("Invalid amount");
+                    break;
+                }
+
+                Invoice invoice = new Invoice(System.currentTimeMillis(), selectedClient.getName(), amount);
+
+                selectedClient.addInvoice(invoice);
+
+                System.out.println("Invoice sent to " + selectedClient.getName());
                 break;
             case "4":
                 System.out.println("Adding/removing employees...");
