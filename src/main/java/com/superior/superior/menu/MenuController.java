@@ -38,7 +38,8 @@ public class MenuController {
 
         System.out.println("\n--- CLIENT MENU ---");
         System.out.println("1. View my notes");
-        System.out.println("2. Pay invoice");
+        System.out.println("2. View my invoices");
+        System.out.println("3. Pay invoice");
         System.out.println("0. Logout");
 
         String choice = scnr.nextLine();
@@ -56,19 +57,37 @@ public class MenuController {
                 break;
             case "2":
                 if(client.getInvoices().isEmpty()) {
-                    System.out.println("No invoices to pay");
-                    break;
-                }
-                Invoice invoice = client.getInvoices().get(0);
-
-                if (invoice.isPaid()) {
-                    System.out.println("Invoice is paid");
+                    System.out.println("No invoices");
                 }
                 else {
-                    invoice.pay();
-                    System.out.println("Invoice paid: $" + invoice.getAmount());
+                    for (Invoice invoice : client.getInvoices()) {
+                        System.out.println(invoice);
+                    }
                 }
                 break;
+            case "3":
+                List<Invoice> unpaid = client.getInvoices().stream().filter(i -> !i.isPaid()).toList();
+
+                if (unpaid.isEmpty()) {
+                    System.out.println("No unpaid invoices");
+                    break;
+                }
+
+                System.out.println("Select invoice to pay: ");
+                for (int i = 0; i < unpaid.size(); i++) {
+                    System.out.println((i + 1) + ". " + unpaid.get(i));
+                }
+
+                try {
+                    int index = Integer.parseInt(scnr.nextLine()) - 1;
+                    unpaid.get(index).pay();
+                    System.out.println("Invoice paid successfully");
+                }
+                catch (Exception e) {
+                    System.out.println("Invalid selection");
+                }
+                break;
+
             case "0":
                 return true; // exit menu
             default:
