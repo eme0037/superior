@@ -56,31 +56,47 @@ public class MenuController {
                 }
                 break;
             case "2":
-                if(client.getInvoices().isEmpty()) {
-                    System.out.println("No invoices");
-                }
-                else {
-                    for (Invoice invoice : client.getInvoices()) {
-                        System.out.println(invoice);
-                    }
-                }
-                break;
-            case "3":
-                List<Invoice> unpaid = client.getInvoices().stream().filter(i -> !i.isPaid()).toList();
-
+                List<Invoice> unpaid = client.getUnpaidInvoices();
                 if (unpaid.isEmpty()) {
                     System.out.println("No unpaid invoices");
                     break;
                 }
 
-                System.out.println("Select invoice to pay: ");
+                System.out.println("Unpaid invoices: ");
                 for (int i = 0; i < unpaid.size(); i++) {
                     System.out.println((i + 1) + ". " + unpaid.get(i));
                 }
 
+                System.out.println("Select invoice to pay: ");
+                int index;
                 try {
-                    int index = Integer.parseInt(scnr.nextLine()) - 1;
+                    index = Integer.parseInt(scnr.nextLine()) - 1;
+                    if (index < 0 || index >= unpaid.size()) {
+                        System.out.println("Invalid selection");
+                        break;
+                    }
                     unpaid.get(index).pay();
+                    System.out.println("Invoice paid successfully");
+                } catch (Exception e) {
+                    System.out.println("Invlaid input");
+                }
+                break;
+            case "3":
+                List<Invoice> unpaidInvoices = client.getInvoices().stream().filter(i -> !i.isPaid()).toList();
+
+                if (unpaidInvoices.isEmpty()) {
+                    System.out.println("No unpaid invoices");
+                    break;
+                }
+
+                System.out.println("Select invoice to pay: ");
+                for (int i = 0; i < unpaidInvoices.size(); i++) {
+                    System.out.println((i + 1) + ". " + unpaidInvoices.get(i));
+                }
+
+                try {
+                    int invoiceIndex = Integer.parseInt(scnr.nextLine()) - 1;
+                    unpaidInvoices.get(invoiceIndex).pay();
                     System.out.println("Invoice paid successfully");
                 }
                 catch (Exception e) {

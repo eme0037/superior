@@ -59,5 +59,9 @@ public class Client extends User {
     public List<Invoice> getInvoices() {
         return invoices;
     }
+
+    public List<Invoice> getUnpaidInvoices() {
+        return invoices.stream().filter(inv -> !inv.isPaid()).toList();
+    }
 }
 
