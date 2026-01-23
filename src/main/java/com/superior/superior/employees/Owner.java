@@ -14,7 +14,6 @@ public class Owner extends User {
         this.name = name;
     }
 
-    // owner can view all client notes
     public void viewClientNotes(Client client) {
         System.out.println("Notes for client: " + client.getName());
         for (Note note : client.getNotes()) {
@@ -22,7 +21,6 @@ public class Owner extends User {
         }
     }
 
-    // owner can view all employee private notes
     public void viewEmployeeNotes(com.superior.superior.employees.Employee employee) {
         System.out.println("Private notes for employee: " + employee.getName());
         for (Note note : employee.getPrivateNotes()) {

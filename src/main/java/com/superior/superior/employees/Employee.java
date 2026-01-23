@@ -56,6 +56,7 @@ public class Employee extends User {
     public void assignClient(Client client) {
         assignedClients.add(client);
     }
+
     public List<Client> getAssignedClients() {
         return assignedClients;
     }

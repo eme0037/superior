@@ -7,7 +7,7 @@ public class User {
     private String password;
     private Role role;
 
-    public User(Long id, String email, String password, Role role) { // constructor
+    public User(Long id, String email, String password, Role role) {
 
         this.id = id;
         this.email = email;
@@ -15,8 +15,6 @@ public class User {
         this.role = role;
 
     }
-
-    // getters and setters
 
     public Long getId() {
         return id;

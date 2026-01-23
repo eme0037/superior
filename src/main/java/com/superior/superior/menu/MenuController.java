@@ -103,7 +103,6 @@ public class MenuController {
                     System.out.println("Invalid selection");
                 }
                 break;
-
             case "0":
                 return true; // exit menu
             default:

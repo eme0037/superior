@@ -16,17 +16,15 @@ public class Client extends User {
 
     // Constructor
     public Client(Long id, String email, String password, String name, String address) {
-        super(id, email, password, Role.CLIENT); // call User constructor
+        super(id, email, password, Role.CLIENT);
         this.name = name;
         this.address = address;
     }
 
-    // Add a note to client
     public void addNote(Note note) {
         notes.add(note);
     }
 
-    // Get all notes
     public List<Note> getNotes() {
         return notes;
     }

@@ -1,10 +1,10 @@
+// This file is currently being used to run tests
+
 package com.superior.superior;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-// put imports under this
 import com.superior.superior.clients.Client;
 import com.superior.superior.employees.Employee;
 import com.superior.superior.employees.Owner;
@@ -29,7 +29,8 @@ public class SuperiorApplication {
         // Spring Boot startup always keep this
         SpringApplication.run(SuperiorApplication.class, args);
 
-        // blank testing section
+        // Tests below
+        // Order for new client: id, email, password, name, address
         Client client1 = new Client(
                 1L,
                 "client@example.com",
@@ -40,6 +41,7 @@ public class SuperiorApplication {
 
         client1.addInvoice(new Invoice(1L, client1.getName(), 150.00));
 
+        // Order for new employee: id, email, password, name
         Employee employee1 = new Employee(
                 2L,
                 "alice@gmail.com",
@@ -47,6 +49,7 @@ public class SuperiorApplication {
                 "Alice"
         );
 
+        // Order for new owner: id, email, password, name
         Owner owner1 = new Owner(
                 3L,
                 "boss@gmail.com",
