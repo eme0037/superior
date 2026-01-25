@@ -1,9 +1,12 @@
 package com.superior.superior.employees;
 
+import com.superior.superior.billing.Invoice;
 import com.superior.superior.clients.Client;
 import com.superior.superior.notes.Note;
 import com.superior.superior.users.User;
 import com.superior.superior.users.Role;
+
+import java.util.List;
 
 public class Owner extends User {
 
@@ -30,5 +33,22 @@ public class Owner extends User {
 
     public String getName() {
         return name;
+    }
+
+    public void viewClientInvoices(Client client) {
+        System.out.println("Invoices for " + client.getName() + ": ");
+
+        List<Invoice> invoices = client.getInvoices();
+
+        if (invoices.isEmpty()) {
+            System.out.println(" No invoices");
+            return;
+        }
+
+        for (int i = 0; i < invoices.size(); i++) {
+            Invoice inv = invoices.get(i);
+            String status = inv.isPaid() ? "Paid" : "Unpaid";
+            System.out.println((i + 1) + ". $" + inv.getAmount() + " | " + status);
+        }
     }
 }

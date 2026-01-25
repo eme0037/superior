@@ -62,7 +62,7 @@ public class MenuController {
                     break;
                 }
 
-                System.out.println("Unpaid invoices: ");
+                System.out.println("\n--- MY INVOICES ---");
                 for (int i = 0; i < unpaid.size(); i++) {
                     System.out.println((i + 1) + ". " + unpaid.get(i));
                 }
@@ -78,7 +78,7 @@ public class MenuController {
                     unpaid.get(index).pay();
                     System.out.println("Invoice paid successfully");
                 } catch (Exception e) {
-                    System.out.println("Invlaid input");
+                    System.out.println("Invalid input");
                 }
                 break;
             case "3":
@@ -175,11 +175,13 @@ public class MenuController {
             case "1":
                 if (clients.isEmpty()) {
                     System.out.println("No clients to view");
-                } else {
-                    for (int i = 0; i < clients.size(); i++) {
-                        System.out.println((i + 1) + ". " + clients.get(i).getName());
-                    }
+                    break;
                 }
+
+                for (Client client : clients) {
+                    System.out.println("\nClient: " + client.getName());
+                    owner.viewClientInvoices(client);
+                    }
             break;
             case "2":
                 if (employees.isEmpty()) {

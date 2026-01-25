@@ -59,7 +59,13 @@ public class Client extends User {
     }
 
     public List<Invoice> getUnpaidInvoices() {
-        return invoices.stream().filter(inv -> !inv.isPaid()).toList();
+        List<Invoice> unpaid = new ArrayList<>();
+        for (Invoice invoice : invoices) {
+            if (!invoice.isPaid()) {
+                unpaid.add(invoice);
+            }
+        }
+        return unpaid;
     }
 }
 
