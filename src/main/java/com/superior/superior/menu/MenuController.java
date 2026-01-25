@@ -127,11 +127,16 @@ public class MenuController {
                 Employee emp = (Employee) user;
                 if(employee.getAssignedClients().isEmpty()) {
                     System.out.println("No assigned clients");
-                } else {
-                    System.out.println("Assigned Clients:");
-                    for (Client c : emp.getAssignedClients()) {
-                        System.out.println("- " + c.getName());
-                    }
+                    break;
+                }
+
+                System.out.println("\n--- MY ASSIGNED CLIENTS ---");
+                List<Client> clients = employee.getAssignedClients();
+
+                for (int i = 0; i < clients.size(); i++) {
+                    Client c = clients.get(i);
+                    int unpaidCount = c.getUnpaidInvoices().size();
+                    System.out.println((i + 1) + ". " + c.getName() + " | " + unpaidCount + " unpaid invoices");
                 }
                 break;
             case "2":
