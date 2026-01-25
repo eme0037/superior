@@ -166,6 +166,7 @@ public class MenuController {
         System.out.println("3. Send invoices");
         System.out.println("4. Assign client to employee");
         System.out.println("5. Add/remove employees");
+        System.out.println("6. View all invoices");
         System.out.println("0. Logout");
 
         String choice = scnr.nextLine();
@@ -323,6 +324,24 @@ public class MenuController {
                         break;
                     default:
                         System.out.println("Invalid option");
+                }
+                break;
+            case "6":
+                if (clients.isEmpty()) {
+                    System.out.println("No clients available");
+                    break;
+                }
+
+                for (Client client : clients) {
+                    System.out.println("\nInvoices for " + client.getName() + ":");
+
+                    if (client.getInvoices().isEmpty()) {
+                        System.out.println(" No invoices");
+                    } else {
+                        for (Invoice inv : client.getInvoices()) {
+                            System.out.println(" " + inv);
+                        }
+                    }
                 }
                 break;
             case "0":
