@@ -173,8 +173,14 @@ public class MenuController {
 
         switch (choice) {
             case "1":
-                System.out.println("Viewing all clients...");
-                break;
+                if (clients.isEmpty()) {
+                    System.out.println("No clients to view");
+                } else {
+                    for (int i = 0; i < clients.size(); i++) {
+                        System.out.println((i + 1) + ". " + clients.get(i).getName());
+                    }
+                }
+            break;
             case "2":
                 if (employees.isEmpty()) {
                     System.out.println("No employees found");
@@ -222,51 +228,30 @@ public class MenuController {
                 System.out.println("Invoice sent to " + selectedClient.getName());
                 break;
             case "4":
-                if (employees.isEmpty()) {
-                    System.out.println("No employees to assign");
-                    break;
-                }
-                if (clients.isEmpty()) {
-                    System.out.println("No clients available");
+                if (employees.isEmpty() || clients.isEmpty()) {
+                    System.out.println("Employees or clients missing");
                     break;
                 }
 
-                System.out.println("Select employee to assign a client: ");
-                for (int i = 0; i < employees.size(); i++) {
-                    System.out.println((i + 1) + ". " + employees.get(i).getName());
-                }
-
-                int empIndex;
-                try {
-                    empIndex = Integer.parseInt(scnr.nextLine()) - 1;
-                } catch (Exception e) {
-                    System.out.println("Invalid employee index");
-                    break;
-                }
-
-                Employee selectedEmployee = employees.get(empIndex);
-
-                System.out.println("Select client to assign: ");
+                System.out.println("Select client: ");
                 for (int i = 0; i < clients.size(); i++) {
                     System.out.println((i + 1) + ". " + clients.get(i).getName());
                 }
 
-               // int clientIndex;
-                try {
-                    clientIndex = Integer.parseInt(scnr.nextLine()) - 1;
-                } catch (Exception e) {
-                    System.out.println("Invalid selection");
-                    break;
-                }
-                if (clientIndex < 0 || clientIndex >= clients.size()) {
-                    System.out.println("Invalid client index");
-                    break;
+                int clientIdx = Integer.parseInt(scnr.nextLine()) - 1;
+                Client clientChoice = clients.get(clientIdx);
+
+                System.out.println("Select employee: ");
+                for (int i = 0; i < employees.size(); i++) {
+                    System.out.println((i + 1) + ". " + employees.get(i).getName());
                 }
 
-                Client clientToAssign = clients.get(clientIndex);
+                int empIdx = Integer.parseInt(scnr.nextLine()) - 1;
+                Employee employeeChoice = employees.get(empIdx);
 
-                selectedEmployee.assignClient(clientToAssign);
-                System.out.println("Assigned client " + clientToAssign.getName() + " to employee " + selectedEmployee.getName());
+                employeeChoice.assignClient(clientChoice);
+
+                System.out.println("Assigned " + clientChoice.getName() + " to " + employeeChoice.getName());
                 break;
             case "5":
                 System.out.println("\n1. Add Employee");
